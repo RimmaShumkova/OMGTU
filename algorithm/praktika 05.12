@@ -1,0 +1,29 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication12
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n = Convert.ToInt32(Console.ReadLine());
+            int t = Convert.ToInt32(Console.ReadLine());
+            int summaAshek = 0;
+            int minimalnoeRasstoyanie = 0;
+            
+            for (int i = 0; i < n; i++)
+            {
+                int a1 = Convert.ToInt32(Console.ReadLine());
+                int b1 = Convert.ToInt32(Console.ReadLine());
+                summaAshek += a1;
+                minimalnoeRasstoyanie = Math.Min(summaAshek + t, minimalnoeRasstoyanie + b1);
+            }
+            Console.WriteLine(minimalnoeRasstoyanie);
+            Console.ReadKey();
+        }
+    }
+}
