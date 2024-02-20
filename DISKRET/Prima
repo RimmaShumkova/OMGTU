@@ -1,0 +1,35 @@
+import math
+
+
+def get_min(rib, connectedVertices):
+    ribMin = (math.inf, -1, -1)
+    for vertice in connectedVertices:
+        currentRib = min(rib, key=lambda x: x[0] if (x[1] == vertice or x[2] == vertice) and (x[1] not in connectedVertices or x[2] not in connectedVertices) else math.inf)
+        if ribMin[0] > currentRib[0]:
+            ribMin = currentRib
+
+    return ribMin
+
+ribs = [(math.inf, -1, -1), (15, 1, 2), (14, 1, 5), (23, 1, 4), (19, 2, 3), (16, 2, 4), (15, 2, 5),
+          (14, 3, 5), (26, 3, 6), (25, 4, 5), (23, 4, 7), (20, 4, 8), (24, 5, 6),
+          (27, 5, 8), (18, 5, 9), (14, 7, 8), (18, 8, 9)]
+
+n = 0
+for rib in ribs:
+    n = max(n, rib[1], rib[2])
+
+sonnectedVertices = {1}
+ostov = []
+
+while len(sonnectedVertices) < n:
+    rib = get_min(ribs, sonnectedVertices)
+    if rib[0] == math.inf:
+        break
+
+    ostov.append(rib)
+    sonnectedVertices.add(rib[1])
+    sonnectedVertices.add(rib[2])
+
+print(ostov)
+
+
