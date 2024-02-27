@@ -1,0 +1,193 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication15
+{
+
+    interface IDatabase
+    {
+        void CreationDatabase();
+        void AddingToDatabase();
+        void UpdateByAudienceNumber();
+        void SampleByCapacity(int capacity);
+        void SampleByPCAndProjectorAvailability();
+        void SampleByFloor(int floor);
+        void Exit();
+    }
+
+    class Menu : IDatabase
+    {
+        private List<Auditorium> audiences;
+
+        public Menu()
+        {
+            audiences = new List<Auditorium>();
+        }
+
+        public void CreationDatabase()
+        {
+            audiences.Clear();
+            Console.WriteLine("База данных создана");
+        }
+
+        public void AddingToDatabase()
+        {
+            Console.WriteLine("Введите описание аудитории: ");
+            Console.Write("Номер аудитории: ");
+            int number = int.Parse(Console.ReadLine());
+
+            Console.Write("Вместительность: ");
+            int capacity = int.Parse(Console.ReadLine());
+
+            Console.Write("Компьютер с проектором есть? (true/false): ");
+            bool hasPCAndProjector = bool.Parse(Console.ReadLine());
+
+            Auditorium audience = new Auditorium(number, capacity, hasPCAndProjector);
+            audiences.Add(audience);
+
+            Console.WriteLine("Аудитория добавлена в базу данных");
+        }
+
+        public void UpdateByAudienceNumber()
+        {
+            Console.Write("Введите номер аудитории для обновления: ");
+            int number = int.Parse(Console.ReadLine());
+
+            Auditorium audience = audiences.Find(a => a.Number == number);
+            if (audience != null)
+            {
+                Console.Write("Введите новую вместительность: ");
+                int newCapacity = int.Parse(Console.ReadLine());
+                audience.Capacity = newCapacity;
+                Console.Write("А теперь комп с проектором есть, а? (true/false): ");
+                bool hasPCAndProjector = bool.Parse(Console.ReadLine());
+                audience.HasPCAndProjector = hasPCAndProjector;
+
+                Console.WriteLine("Аудитория обновлена");
+            }
+            else
+            {
+                Console.WriteLine("Аудитория не найдена....");
+            }
+        }
+
+        public void SampleByCapacity(int capacity)
+        {
+            List<Auditorium> result = audiences.FindAll(a => a.Capacity >= capacity);
+            Console.WriteLine("Аудитории с вместительностью {0}:", capacity);
+            foreach (Auditorium audience in result)
+            {
+                Console.WriteLine(audience);
+            }
+        }
+
+        public void SampleByPCAndProjectorAvailability()
+        {
+            List<Auditorium> result = audiences.FindAll(a => a.HasPCAndProjector);
+            Console.WriteLine("Аудитории с ПК и проектором:");
+            foreach (Auditorium audience in result)
+            {
+                Console.WriteLine(audience);
+            }
+        }
+
+        public void SampleByFloor(int floor)
+        {
+            List<Auditorium> result = audiences.FindAll(a => a.Floor == floor);
+            Console.WriteLine("Аудитории на этаже {0}:", floor);
+            foreach (Auditorium audience in result)
+            {
+                Console.WriteLine(audience);
+            }
+        }
+
+        public void Exit()
+        {
+            Environment.Exit(0);
+        }
+    }
+
+    class Auditorium
+    {
+        public int Number { get; set; }
+        public int Capacity { get; set; }
+        public bool HasPCAndProjector { get; set; }
+
+        public int Floor
+        {
+            get { return Number / 100; }
+        }
+
+        public Auditorium(int number, int capacity, bool hasPCAndProjector)
+        {
+            Number = number;
+            Capacity = capacity;
+            HasPCAndProjector = hasPCAndProjector;
+        }
+
+        public override string ToString()
+        {
+            return string.Format("Аудитория" + Number + "Вместительность:" + Capacity + "ПК и проектор:" + HasPCAndProjector);
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Menu menu = new Menu();
+            while (true)
+            {
+                Console.WriteLine("Менюшка:");
+                Console.WriteLine("1. Создание базы данных");
+                Console.WriteLine("2. Добавление в базу данных");
+                Console.WriteLine("3. Обновление по номеру аудитории");
+                Console.WriteLine("4. Выборка по вместительности");
+                Console.WriteLine("5. Выборка по наличию ПК и проетора");
+                Console.WriteLine("6. Выборка по этажу");
+                Console.WriteLine("7. Выход!");
+
+                Console.Write("Введите цифру вашего выбора: ");
+                int choice = int.Parse(Console.ReadLine());
+
+                switch (choice)
+                {
+                    case 1:
+                        menu.CreationDatabase();
+                        break;
+                    case 2:
+                        menu.AddingToDatabase();
+                        break;
+                    case 3:
+                        menu.UpdateByAudienceNumber();
+                        break;
+                    case 4:
+                        Console.Write("Введите вместительность: ");
+                        int capacity = int.Parse(Console.ReadLine());
+                        menu.SampleByCapacity(capacity);
+                        break;
+                    case 5:
+                        menu.SampleByPCAndProjectorAvailability();
+                        break;
+                    case 6:
+                        Console.Write("Введите этаж: ");
+                        int floor = int.Parse(Console.ReadLine());
+                        menu.SampleByFloor(floor);
+                        break;
+                    case 7:
+                        menu.Exit();
+                        break;
+                    default:
+                        Console.WriteLine("Неверный ввод....");
+                        break;
+                }
+
+                Console.WriteLine();
+            }
+        }
+    }
+}
