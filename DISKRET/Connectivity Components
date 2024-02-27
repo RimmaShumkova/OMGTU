@@ -1,0 +1,42 @@
+class ConnectivityComponents:
+    def __init__(self, verticels):
+        self.V = verticels + 1
+        self.compoundList = {}
+        for i in range(1, self.V):
+            self.compoundList[i] = []
+            
+    def addingVertices(self, v, w):
+        self.compoundList[v].append(w)
+        self.compoundList[w].append(v)
+        
+    def path(self, verticel, visited):
+        visited[verticel] = True
+        print(verticel, end=' ')
+
+        for i in self.compoundList[verticel]:
+            if not visited[i]:
+                self.path(i, visited)
+
+    def vertexOutput(self):
+            visited = [False] * (self.V)
+
+            for i in range(1, self.V):
+                if not visited[i]:
+                    self.path(i, visited)
+                    print()
+
+
+g = ConnectivityComponents(9)
+
+g.addingVertices(1, 6)
+g.addingVertices(1, 2)
+g.addingVertices(2, 3)
+g.addingVertices(2, 4)
+g.addingVertices(3, 4)
+g.addingVertices(3, 2)
+g.addingVertices(4, 5)
+g.addingVertices(7, 9)
+g.addingVertices(9, 8)
+
+print("Компоненты связности: ")
+g.vertexOutput()
