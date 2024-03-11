@@ -1,0 +1,181 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication17
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            while (true)
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Выберите функцию для массива:"); 
+            Console.WriteLine("1. Счетчик");
+            Console.WriteLine("2. Бинарный поиск"); 
+            Console.WriteLine("3. Копирование");
+            Console.WriteLine("4. Поиск элемента"); 
+            Console.WriteLine("5. Поиск последнего элемента");
+            Console.WriteLine("6. Поиск по индексу"); 
+            Console.WriteLine("7. Перевертыш");
+            Console.WriteLine("8. Изменение размера массива"); 
+            Console.WriteLine("9. Сортировка");
+            Console.WriteLine("0. Выход");
+            string choice = Console.ReadLine(); 
+            switch (choice)
+            {
+                case "1":
+                    ArrayCount(); 
+                    break;
+                case "2":
+                    ArrayBinSearch();
+                    break;
+                case "3":
+                    ArrayCopy(); 
+                    break;
+                case "4":
+                    ArrayFind();
+                    break;
+                case "5":
+                    ArrayFindLast(); 
+                    break;
+                case "6":
+                    ArrayIndexOf();
+                    break;
+                case "7":
+                    ArrayReverse(); 
+                    break;
+                case "8":
+                    ArrayResize();
+                    break;
+                case "9":
+                    ArraySort();
+                    break;
+                case "0":
+                    return;
+                default:
+                    Console.WriteLine("Неверный ввод..."); 
+                    break;
+            }
+        }
+    }
+    private static void ArrayCount()
+    {
+        Console.WriteLine("Введите элементы массива через пробел: "); 
+        string[] elements = Console.ReadLine().Split(' ');
+        int count = elements.Count();
+        Console.WriteLine("Количество элементов: " + count);
+    }
+    private static void ArrayBinSearch()
+    {
+        Console.WriteLine("Введите элементы массива через пробел: "); 
+        string[] elements = Console.ReadLine().Split(' ');
+        Console.WriteLine("Введите элемент: ");
+        string element = Console.ReadLine();
+        Array.Sort(elements); 
+        int index = Array.BinarySearch(elements, element);
+
+        if (index < 0)
+        {
+            Console.WriteLine("Элемент не найден...");
+        }
+        else
+        {
+            Console.WriteLine("Индекс элемента: " + index);
+        }
+    }
+    private static void ArrayCopy()
+    {
+        Console.WriteLine("Введите элементы исходного массива через пробел: "); 
+        string[] sourceElements = Console.ReadLine().Split(' ');
+
+        Console.WriteLine("Введите элементы массива назначения через пробелами: ");
+        string[] destinationElements = Console.ReadLine().Split(' ');        
+
+        Console.WriteLine("Введите длину: "); 
+        long length = int.Parse(Console.ReadLine());
+
+        Array.Copy(sourceElements, destinationElements, length); 
+        Console.WriteLine("Скопированный массив: ");
+        foreach (string element in destinationElements)
+        {
+            Console.WriteLine(element);
+        }
+    }
+    private static void ArrayFind()
+    {
+        Console.WriteLine("Введите элементы(номера) исходного массива через пробел: ");
+        string[] elements = Console.ReadLine().Split(' ');
+        Console.WriteLine("Введите a");
+        int a = Convert.ToInt32(Console.ReadLine());
+        Console.WriteLine("Наименьший номер, больший, чем a : " + Array.Find(elements, i => Convert.ToInt32(i) >= a));
+    }
+    private static void ArrayFindLast()
+    {
+        Console.WriteLine("Enter array elements (numbers) separated by spaces: ");
+        string[] elements = Console.ReadLine().Split(' ');
+        Console.WriteLine("Enter a"); 
+        int a = Convert.ToInt32(Console.ReadLine());
+        Console.WriteLine("Наибольший номер, меньший, чем a = {a} : " + Array.FindLast(elements, i => Convert.ToInt32(i) <= a));
+    }
+    private static void ArrayIndexOf()
+    {
+        Console.WriteLine("Введите элементы исходного массива через пробел: "); 
+        string[] elements = Console.ReadLine().Split(' ');
+        Console.WriteLine("Введите элемент: ");
+        string element = Console.ReadLine();
+        int index = Array.IndexOf(elements, element);
+        if (index < 0)
+        {
+            Console.WriteLine("Элемент не найден");
+        }
+        else
+        {
+            Console.WriteLine("Индекс элемента: " + index);
+        }
+    }
+    private static void ArrayReverse()
+    {
+        Console.WriteLine("Введите элементы массива через пробел: ");
+        string[] elements = Console.ReadLine().Split(' '); 
+        Array.Reverse(elements);
+        string output = "";
+        foreach (string element in elements)
+        {
+            output += element + " ";
+        }
+        Console.WriteLine("Элементы - перевертыши: " + output);
+    }
+    private static void ArrayResize()
+    {
+        Console.WriteLine("Введите элементы исходного массива через пробел: "); 
+        string[] elements = Console.ReadLine().Split(' ');
+        Console.WriteLine("Введите новую размерность: ");
+        int size = Convert.ToInt32(Console.ReadLine()); 
+        Array.Resize(ref elements, size);
+        Console.WriteLine("Элементы массива: ");
+        for (int i = 0; i < elements.Length; i++)
+        {
+            Console.WriteLine("{i}: " + elements[i]);
+        }
+
+    }
+
+    private static void ArraySort()
+    {
+        Console.WriteLine("Введите элементы исходного массива через пробел: ");
+        string[] elements = Console.ReadLine().Split(' ');
+
+        Array.Sort(elements);
+        string output = "";
+        foreach (string element in elements)
+        {
+            output += element + " ";
+        }
+        Console.WriteLine("Ортсортированный массив: " + output);
+        }
+    }
+}
