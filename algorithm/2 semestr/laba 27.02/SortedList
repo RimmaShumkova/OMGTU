@@ -1,0 +1,117 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Xml.Linq;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        while (true)
+        {
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.WriteLine("Выберите функцию для отсортированного списка:");
+            Console.WriteLine("1. Добавить");
+            Console.WriteLine("2. Индекс ключа");
+            Console.WriteLine("3. Индекс значения");
+            Console.WriteLine("0. Выход");
+            string choice = Console.ReadLine();
+            switch (choice)
+            {
+                case "1":
+                    SortedListAdd();
+                    break;
+                case "2":
+                    SortedListIndexOfKey();
+                    break;
+                case "3":
+                    SortedListIndexOfValue();
+                    break;
+                case "0":
+                    return;
+                default:
+                    Console.WriteLine("Неверный ввод...");
+                    break;
+            }
+        }
+    }
+    private static void SortedListAdd()
+    {
+        Console.WriteLine("Введите ключи и элементы массива, разделенные пробелами (ключевой элемент): ");
+        string[] elements = Console.ReadLine().Split(' ');
+
+        SortedList sortedList = new SortedList();
+
+        foreach (string elem in elements)
+        {
+            string[] keyAndValue = elem.Split('-');
+            sortedList.Add(keyAndValue[0], keyAndValue[1]);
+        }
+
+        Console.WriteLine("Введите ключ и элемент для добавления: ");
+        string[] keyAndElement = Console.ReadLine().Split('-');
+
+        sortedList.Add(keyAndElement[0], keyAndElement[1]);
+
+        Console.WriteLine("Новый отсортированный список: ");
+        for (int i = 0; i < sortedList.Count; i++)
+        {
+            Console.WriteLine(sortedList.GetKey(i) + ":" + sortedList.GetByIndex(i));
+        }
+
+    }
+    private static void SortedListIndexOfKey()
+    {
+        Console.WriteLine("Введите ключи и элементы массива, разделенные пробелами (ключевой элемент): ");
+        string[] elements = Console.ReadLine().Split(' ');
+
+        SortedList sortedList = new SortedList();
+
+        foreach (string elem in elements)
+        {
+            string[] keyAndValue = elem.Split('-');
+            sortedList.Add(keyAndValue[0], keyAndValue[1]);
+        }
+        Console.WriteLine("Введите ключ: ");
+        string key = Console.ReadLine();
+
+        int index = sortedList.IndexOfKey(key);
+
+
+        if (index < 0)
+        {
+            Console.WriteLine("Элемент не найден...");
+        }
+        else
+        {
+            Console.WriteLine("Индекс элемента: " + index);
+        }
+    }
+
+    private static void SortedListIndexOfValue()
+    {
+        Console.WriteLine("Введите ключи и элементы массива, разделенные пробелами (ключевой элемент): ");
+        string[] elements = Console.ReadLine().Split(' ');
+
+        SortedList sortedList = new SortedList();
+
+        foreach (string elem in elements)
+        {
+            string[] keyAndValue = elem.Split('-');
+            sortedList.Add(keyAndValue[0], keyAndValue[1]);
+        }
+        Console.WriteLine("Введите значение: ");
+        string value = Console.ReadLine();
+
+        int index = sortedList.IndexOfValue(value);
+
+        if (index < 0)
+        {
+            Console.WriteLine("Элемент не найден...");
+        }
+        else
+        {
+            Console.WriteLine("Индекс элемента: " + index);
+        }
+    }
+}
