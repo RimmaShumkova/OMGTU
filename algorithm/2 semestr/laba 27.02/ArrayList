@@ -1,0 +1,234 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Xml.Linq;
+using System.Linq;
+namespace ConsoleApplication18
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+             while (true)
+        {
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("Выберите функцию для списка массива:");
+            Console.WriteLine("1. Количество элементов");
+            Console.WriteLine("2. Бинарный поиск");
+            Console.WriteLine("3. Копирование");
+            Console.WriteLine("4. Поиск по индексу");
+            Console.WriteLine("5. Внедрение элемента");
+            Console.WriteLine("6. Перевертыш");
+            Console.WriteLine("7. Сортировка");
+            Console.WriteLine("8. Добавление");
+            Console.WriteLine("0. Выход");
+            string choice = Console.ReadLine();
+            switch (choice)
+            {
+                case "1":
+                    ArrayListCount();
+                    break;
+                case "2":
+                    ArrayListBinSearch();
+                    break;
+                case "3":
+                    ArrayListCopyTo();
+                    break;
+                case "4":
+                    ArrayListIndexOf();
+                    break;
+                case "5":
+                    ArrayListInsert();
+                    break;
+                case "6":
+                    ArrayListReverse();
+                    break;
+                case "7":
+                    ArrayListSort();
+                    break;
+                case "8":
+                    ArrayListAdd();
+                    break;
+                case "9":
+                    
+                    break;
+                case "0":
+                    return;
+                default:
+                    Console.WriteLine("Неверный ввод...");
+                    break;
+            }
+        }
+    }
+    private static void ArrayListCount()
+    {
+        Console.WriteLine("Введите элементы массива через пробел: ");
+        string[] elements = Console.ReadLine().Split(' ');
+
+        int count = elements.Count();
+        Console.WriteLine("Количество элементовt: " + count);
+    }
+    private static void ArrayListBinSearch()
+    {
+        Console.WriteLine("Введите элементы массива через пробел: ");
+        string[] elements = Console.ReadLine().Split(' ');
+
+        ArrayList arrayList = new ArrayList();
+
+        foreach (string elem in elements) 
+        {
+            arrayList.Add(elem);
+        }
+
+        arrayList.Sort();
+
+        Console.WriteLine("Введите элемент: ");
+        string element = Console.ReadLine();
+        Array.Sort(elements);
+        int index = arrayList.BinarySearch(element);
+
+        if (index < 0)
+        {
+            Console.WriteLine("Элемент не найден");
+        }
+        else
+        {
+            Console.WriteLine("Индекс элемента: " +  index);
+        }
+    }
+    private static void ArrayListCopyTo()
+    {
+        Console.WriteLine("Введите элементы исходного массива через пробел: ");
+        string[] sourceElements = Console.ReadLine().Split(' ');
+        ArrayList arrayList = new ArrayList();
+
+        foreach (string elem in sourceElements)
+        {
+            arrayList.Add(elem);
+        }
+
+        Console.WriteLine("Введите элементы массива назначения через пробел: ");
+        string[] destinationElements = Console.ReadLine().Split(' ');
+
+        arrayList.CopyTo(destinationElements);
+        Console.WriteLine("Скопированный массив: ");
+        foreach (string element in destinationElements)
+        {
+            Console.WriteLine(element);
+        }
+    }
+    private static void ArrayListInsert()
+    {
+        Console.WriteLine("Введите элементы массива (числа) через пробел: ");
+        string[] elements = Console.ReadLine().Split(' ');
+        ArrayList arrayList = new ArrayList();
+
+        foreach (string elem in elements)
+        {
+            arrayList.Add(elem);
+        }
+
+        Console.WriteLine("Введите индекс: ");
+        int index = Convert.ToInt32(Console.ReadLine());
+
+        Console.WriteLine("Введите элемент для вставки: ");
+        string element = Console.ReadLine();
+
+        arrayList.Insert(index, element);
+
+        string output = "";
+        foreach (string elem in arrayList)
+        {
+            output += elem + " ";
+        }
+        Console.WriteLine("Новый список массива: " + output);
+    }
+    private static void ArrayListIndexOf()
+    {
+        Console.WriteLine("Введите элементы массива через пробел: ");
+        string[] elements = Console.ReadLine().Split(' ');
+        ArrayList arrayList = new ArrayList();
+
+        foreach (string elem in elements)
+        {
+            arrayList.Add(elem);
+        }
+
+        Console.WriteLine("Введите элемент: ");
+        string element = Console.ReadLine();
+
+
+        int index = arrayList.IndexOf(element);
+        if (index < 0)
+        {
+            Console.WriteLine("Элемент не найден...");
+        }
+        else
+        {
+            Console.WriteLine("Индекс элемента: "  + index);
+        }
+    }
+    private static void ArrayListReverse()
+    {
+        Console.WriteLine("Введите элементы массива через пробел: ");
+        string[] elements = Console.ReadLine().Split(' ');
+        ArrayList arrayList = new ArrayList();
+
+        foreach (string elem in elements)
+        {
+            arrayList.Add(elem);
+        }
+        arrayList.Reverse();
+        string output = "";
+        foreach (string element in arrayList)
+        {
+            output += element + " ";
+        }
+        Console.WriteLine("Элементы-перевертыши: " + output);
+    }
+    private static void ArrayListAdd()
+    {
+        Console.WriteLine("Введите элементы массива через пробел: ");
+        string[] elements = Console.ReadLine().Split(' ');
+        ArrayList arrayList = new ArrayList();
+
+        foreach (string elem in elements)
+        {
+            arrayList.Add(elem);
+        }
+
+        Console.WriteLine("Введите элемент для добавления: ");
+        string element = Console.ReadLine();
+
+        arrayList.Add(element);
+
+        string output = "";
+        foreach (string elem in arrayList)
+        {
+            output += elem + " ";
+        }
+
+        Console.WriteLine("Новый список массива: " + output);
+    }
+
+    private static void ArrayListSort()
+    {
+        Console.WriteLine("Введите элементы массива через пробел: ");
+        string[] elements = Console.ReadLine().Split(' ');
+        ArrayList arrayList = new ArrayList();
+
+        foreach (string elem in elements)
+        {
+            arrayList.Add(elem);
+        }
+
+        arrayList.Sort();
+        string output = "";
+        foreach (string element in arrayList)
+        {
+            output += element + " ";
+        }
+        Console.WriteLine("Отсортированные элементы: " + output);
+        }
+    }
+}
