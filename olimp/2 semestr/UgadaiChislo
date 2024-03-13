@@ -1,0 +1,34 @@
+k = 1
+input = open(f'input_s1_0{k}.txt').read().splitlines()
+result = int(input[-1])
+input = input[1:-1]
+print(result, input)
+buff_numbers = []
+buff_x = [('+', 1)]
+
+for i in input:
+    i = i.split()
+    operation = i[0]
+    number = i[1]
+    if operation == '+' or operation == '-':
+        if number == 'x':
+            buff_x.append((operation, 1))
+        else:
+            buff_numbers.append((operation, int(number)))
+    else:
+        buff_x = list(map(lambda x: (x[0], x[1] * int(number)), buff_x))
+        buff_numbers = list(map(lambda x: (x[0], x[1] * int(number)), buff_numbers))
+
+sum = result
+for operation, number in buff_numbers:
+    if operation == '+':
+        sum -= number
+    else:
+        sum += number
+sum_x = 0
+for operation, number in buff_x:
+    if operation == '+':
+        sum_x += number
+    else:
+        sum_x -= number
+print(int(sum/sum_x))
